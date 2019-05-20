@@ -1,0 +1,77 @@
+<view class='wrap'>
+  <view>
+    <view class='date-show'>
+      <view class='lt-arrow' bindtap='lastMonth'>
+        <image src='/images/icons/left.png' mode='aspectFit'></image>
+      </view>
+      {{year}}年{{month}}月
+      <view class='rt-arrow' bindtap='nextMonth'>
+        <image src='/images/icons/right.png' mode='aspectFit'></image>
+      </view>
+    </view>
+  </view>
+  <view class='header'>
+    <view wx:for='{{date}}' class=''>{{item}}
+      <view></view>
+    </view>
+  </view>
+  <view class='date-box'>
+    <view wx:for='{{dateArr}}' class='{{item.hasPlan? "nowDay":(item.isTap? "isTap":"")}}' data-date='{{item.isToday}}' bindtap='onTap'>
+      <view class='date-head'>
+        <view>{{item.dateNum}}</view>
+      </view>
+      <!-- <view class='date-weight'>{{item.weight}}</view> -->
+    </view>
+  </view>
+
+  <!--有计划时-->
+  <block wx:if='{{hasPlan}}'>
+    <view class="page__bd">
+      <view class="weui-form-preview">
+        <view class="weui-form-preview__hd">
+          <view class="weui-form-preview__item">
+            <view class="weui-form-preview__label">当前日期</view>
+            <view class="weui-form-preview__value_in-hd">{{isToday}}</view>
+          </view>
+        </view>
+        <!-- <view class="weui-form-preview__ft">
+          <navigator url="/pages/showPlan/showPlan?planDate={{isToday}}&userId={{userId}}" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">查看计划</navigator>
+        </view> -->
+        <view class="weui-form-preview__ft">
+          <navigator url="/pages/edit/edit?planDate={{isToday}}&isEdit=0" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">添加计划</navigator>
+        </view>
+        <view class="weui-cells weui-cells_after-title">
+          <block wx:for="{{todayPlanList}}">
+            <navigator url="/pages/edit/edit?planName={{item.planName}}&groupName={{item.groupName}}&planDate={{item.planDate}}&planTime={{item.planTime}}&planDetail={{item.planDetail}}&planId={{item.planId}}&userId={{item.userId}}&isEdit=1" class="weui-cell weui-cell_access"
+              hover-class="weui-cell_active">
+              <view class="weui-cell__hd">
+                <image src="/images/icons/edit.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+              </view>
+              <view class="weui-cell__bd">{{item.planName}}</view>
+              <view class="weui-cell__ft weui-cell__ft_in-access">查看</view>
+            </navigator>
+          </block>
+        </view>
+      </view>
+    </view>
+  </block>
+  <!--无计划时-->
+  <block wx:else>
+    <view class='page__bd'>
+      <view class="weui-form-preview">
+        <view class="weui-form-preview__hd">
+          <view class="weui-form-preview__item">
+            <view class="weui-form-preview__label">当前日期</view>
+            <view class="weui-form-preview__value_in-hd">{{isToday}}</view>
+          </view>
+        </view>
+        <view class="weui-form-preview__ft">
+          <navigator url="" class="weui-form-preview__btn weui-form-preview__btn_default" hover-class="weui-form-preview__btn_active">当前日期无计划</navigator>
+        </view>
+        <view class="weui-form-preview__ft">
+          <navigator url="/pages/edit/edit?planDate={{isToday}}&isEdit=0" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">添加计划</navigator>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>

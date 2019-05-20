@@ -1,0 +1,64 @@
+<view class="page" xmlns:wx="http://www.w3.org/1999/xhtml">
+  <view class="page__hd">
+    <view class="page__title">计划时间:</view>
+    <view class="page__desc">{{planDate}}</view>
+  </view>
+  <form bindsubmit='onSubmit'>
+
+    <view class="page__bd">
+      <view class="weui-cells__title">内容</view>
+      <view class="weui-cells weui-cells_after-title">
+        <!--计划名称-->
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">计划名称</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" placeholder="请输入计划名称" name="planName" value='{{planName}}' disabled='{{userId!=nowUserId}}' />
+          </view>
+        </view>
+        <!--组织名称-->
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">组织名称</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" placeholder="请输入组织名称" name="groupName" value='{{groupName}}' disabled='{{userId!=nowUserId}}' />
+          </view>
+        </view>
+
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">计划时间</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker mode="time" value="{{planTime}}" start="09:01" end="21:01" bindchange="onTimeChange" disabled='{{userId!=nowUserId}}'>
+              <view class="weui-input">{{planTime}}</view>
+            </picker>
+          </view>
+        </view>
+      </view>
+      <view class="weui-cells__title">计划内容</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+          <view class="weui-cell__bd">
+            <textarea class="weui-textarea" placeholder="请输入内容" style="height: 3.3em" name='planDetail' value='{{planDetail}}' disabled='{{userId!=nowUserId}}' />
+          </view>
+        </view>
+      </view>
+      <view class="weui-btn-area">
+        <block wx:if="{{isEdit==1 && userId==nowUserId}}">
+          <button class="weui-btn" type="primary" form-type='submit'>提交修改</button>
+          <button class="weui-btn" type="warn" bindtap='onDelete'>删除该计划</button>
+        </block>
+        <block wx:elif="{{isEdit==1 && userId!=nowUserId}}">
+          <button class="weui-btn" type="primary" bindtap='onTap'>返回</button>
+        </block>
+        <block wx:elif="{{isEdit==0}}">
+          <button class="weui-btn" type="primary" form-type='submit'>提交</button>
+        </block>
+      </view>
+    </view>
+  </form>
+
+</view>
